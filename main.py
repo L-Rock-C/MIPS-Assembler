@@ -4,7 +4,7 @@ L2: addi $t1, $s3, 7
 	j L2
 
 # Read file
-file = open('exemple1.asm', 'r')
+file = open('example1.asm', 'r')
 lines = file.readlines()
 
 # Variables
