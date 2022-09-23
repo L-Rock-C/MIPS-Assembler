@@ -150,9 +150,21 @@ def mainWindow():
                 if isinstance(reg, int):
                     if codeFormat == "R":
                         reg = format(reg, 'b').zfill(5)
+                        if reg.find('-') != -1:
+                            reg.replace('b', '0')
+                            reg.replace('-', '0')
+                            reg.replace('0', '2')
+                            reg.replace('1', '0')
+                            reg.replace('2', '1')
                         return reg
                     if codeFormat == "I":
                         reg = format(reg, 'b').zfill(16)
+                        if reg.find('-') != -1:
+                            reg = reg.replace('b', '0')
+                            reg = reg.replace('-', '0')
+                            reg = reg.replace('0', '2')
+                            reg = reg.replace('1', '0')
+                            reg = reg.replace('2', '1')
                         return reg
 
             # Function to turn the command lines into binary code
@@ -418,8 +430,8 @@ def mainWindow():
                         opCode = "001000"
                         rs = registerTable(commandWords[wordCount + 2], "I")
                         rt = registerTable(commandWords[wordCount + 1], "I")
-                        imm = int(commandWords[wordCount + 3])
-                        imm = registerTable(imm, "I")
+                        imm = commandWords[wordCount + 3]
+                        imm = registerTable(int(imm), "I")
                         binCode.append(opCode + str(rs) + str(rt) + str(imm))
                         if (wordCount + 4) <= len(commandWords):
                             wordCount = wordCount + 3
